@@ -26,12 +26,12 @@ class Canvas extends React.Component {
 
             <div id="set-canvas">
                 <div className="row">
-                <div className="center-align">
+                    <div className="center-align">
                         <div className="container">
                             <div id="colorholder"></div>
                             <canvas id="drawing-canvas" width="480" height="420"></canvas>
                         </div>
-                </div>
+                    </div>
                 </div>
             </div>
         );
