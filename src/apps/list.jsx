@@ -1,25 +1,24 @@
+
 MyComponents.Info = React.createClass({
 	render: function(){
 		var line = this.props.title + ': ' + this.props.value
-		return <p className="collection-item black-text">{line}</p>
+		return <div>{line}</div>
 	}
 })
 
 MyComponents.Time = React.createClass({
 	render: function(){
-		var title = _.keys(this.props.value)
+		var title = _.keys(this.props.value);
 		var Info = _.values(this.props.value).map(function(v, k){
 			return <MyComponents.Info title={title[k]} value={v} />
-		})
-		
-		return <li className="collection-item">
-                <h6 className="blue-grey darken-4 white-text">{this.props.time}</h6>
-                {Info}
-			</li>
-
-	}	
+		});
+		return (
+			<CollapsibleItem header={this.props.time}>
+				{Info}
+			</CollapsibleItem>
+		);
+	}
 })
-
 
 class List extends React.Component{
 	render(){
@@ -33,18 +32,11 @@ class List extends React.Component{
           		<span className="card-title">
 					{this.props.data.day}
 				</span>
-        		<ul className="collection" >{list}</ul>
-        	 </div>
-        </div>	
+				<Collapsible accordion>{list}</Collapsible>
+			</div>
+		</div>
 	}
-	// componentDidMount() {
-	// 	$(document).ready(function () {
-	// 		$('.collapsible').collapsible({
-	// 			accordion: false
-	// 		});
-	// 	});
-	// }
 }
 
+
 MyComponents.List = List;
-	
