@@ -31,6 +31,7 @@ class Chatroom extends React.Component {
     render(){
         var messages = this.props.messages;
         var chatRoomName=this.props.chatRoomName;
+        var space = "  "
 
         return (
             <div id="live-chat">
@@ -40,8 +41,6 @@ class Chatroom extends React.Component {
                     <a href="#" className="chat-close" onClick={() => this.close()}>x</a>
 
                     <h4>{chatRoomName}</h4>
-
-                    <span className="chat-message-counter">new</span>
 
                 </header>
 
@@ -56,8 +55,8 @@ class Chatroom extends React.Component {
                                     return (
                                                 <div className="chat-message clearfix">
                                                     <div className="chat-message-content clearfix">
-                                                    <span className="chat-time">{localTime(message.time)}</span>
-                                                    <h5>{message.username}</h5>
+                                                        <span className="chat-time">{localTime(message.time)}</span>
+                                                    <h5><b>{message.username}</b></h5>
                                                     <p>{message.message}</p>
                                                     </div>
                                                 </div>
@@ -66,14 +65,15 @@ class Chatroom extends React.Component {
                             }
                     </div>
 
-                    <p className="chat-feedback">Your partner is typing…</p>
-
                     <form action="#" method="post">
 
                         <fieldset>
 
                             <textarea name="messageText1" id="messageText1" placeholder ="Type your message" rows="3" ></textarea>
+
+                            <div className="row"></div>
                             <a className="waves-effect waves-green btn" onClick={this.submit.bind(this)}>Send</a>
+                            <a className="waves-effect waves-green btn" onClick={this.clean.bind(this)}>Clean Hist</a>
 
                         </fieldset>
 
@@ -93,6 +93,10 @@ class Chatroom extends React.Component {
         console.log("hi",message);
         this.props.actions.sendMessage(message, time);
         document.getElementById('messageText1').value=""
+    }
+
+    clean(e) {
+        this.props.actions.cleanChat();
     }
 
 }

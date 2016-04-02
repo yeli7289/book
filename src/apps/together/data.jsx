@@ -136,10 +136,37 @@ actions.sendMessage = function(message,time){
             message: message,
             time: time
         })
-    }else{
+    } else {
         Materialize.toast('Please enter your message', 3000, 'rounded')
     }
 };
+
+actions.cleanChat = function(){
+    // var messages=firebaseRef.child(data.group).child('Message').on('value', function(snapshot){
+    //     Object.keys(messages).map(function(message, messageKey) {
+    //         message = messages[messageKey];
+    //         console.log(message)
+    //         console.log(message.username)
+    //         if (message.username == localStorage.getItem('username')){
+    //             message.remove();
+    //         }
+    //     })
+    // })
+
+    firebaseRef.child(data.group).child('Message').on('value', function(snapshot) {
+        var messages = snapshot.val()
+        console.log(messages)
+        Object.keys(messages).map(function(messageKey) {
+            var message = messages[messageKey];
+            var tempRef = firebaseRef.child(data.group).child('Message').child(messageKey)
+            if (message.username == localStorage.getItem('username')) {
+                tempRef.remove();
+            }
+        })
+    })
+    render_chatroom();
+
+}
 
 actions.draw = function(curColor,curSize,x,y){
     var lineRef = new Firebase('https://wetravel.firebaseio.com/Groups/'+data.group+'/drawing');
