@@ -128,8 +128,12 @@ actions.foldChat = function(){
         });
 };
 
+
 actions.sendMessage = function(message,time){
     var messageRef=firebaseRef.child(data.group).child('Message').push()
+    console.log(localStorage.getItem('username'))
+    console.log(message)
+    console.log(time)
     if(message!=""){
         messageRef.set({
             username: localStorage.getItem('username'),
@@ -139,33 +143,24 @@ actions.sendMessage = function(message,time){
     } else {
         Materialize.toast('Please enter your message', 3000, 'rounded')
     }
+    render_chatroom();
+
 };
 
-actions.cleanChat = function(){
-    // var messages=firebaseRef.child(data.group).child('Message').on('value', function(snapshot){
-    //     Object.keys(messages).map(function(message, messageKey) {
-    //         message = messages[messageKey];
-    //         console.log(message)
-    //         console.log(message.username)
-    //         if (message.username == localStorage.getItem('username')){
-    //             message.remove();
-    //         }
-    //     })
-    // })
 
-    firebaseRef.child(data.group).child('Message').on('value', function(snapshot) {
+actions.cleanChat = function(){
+    firebaseRef.child(data.group).child('Message').once('value', function(snapshot) {
         var messages = snapshot.val()
         console.log(messages)
         Object.keys(messages).map(function(messageKey) {
             var message = messages[messageKey];
             var tempRef = firebaseRef.child(data.group).child('Message').child(messageKey)
+            tempRef.push()
             if (message.username == localStorage.getItem('username')) {
                 tempRef.remove();
             }
         })
     })
-    render_chatroom();
-
 }
 
 actions.draw = function(curColor,curSize,x,y){
