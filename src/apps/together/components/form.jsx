@@ -10,7 +10,7 @@ class form extends React.Component {
                 </div>
                 <div className="row">
                     <div className="input-field col s12">
-                        <input placeholder="Day1" id="date" type="text" className="validate"/>
+                        <input id="date" type="text" className="validate"/>
                         <label for="date">Date</label>
                     </div>
                 </div>
@@ -18,26 +18,26 @@ class form extends React.Component {
                 <p className="slider" id="time"></p>
                 <div className="row">
                     <div className="input-field col s12">
-                        <input placeholder="20USD" id="budget" type="text" className="validate"/>
+                        <input id="budget" type="text" className="validate"/>
                         <label for="budget">Budget</label>
                     </div>
                 </div>
                 <div className="row">
                     <div className="input-field col s12">
-                        <input placeholder="Tokyo Tower" id="place" type="text" className="validate"/>
+                        <input id="place" type="text" className="validate"/>
                         <label for="place">Place</label>
                     </div>
                 </div>
                 <div className="row">
                     <div className="input-field col s12">
-                        <input placeholder="Metro R Tokyo Tower" id="transportation" type="text"
+                        <input id="transportation" type="text"
                                className="validate"/>
                         <label for="transportation">Transportation</label>
                     </div>
                 </div>
                 <div className="row">
                     <div className="input-field col s12">
-                        <input placeholder="4 Chome-2-8 Shibakoen, Minato, Tokyo 105-0011" id="address"
+                        <input id="address"
                                type="text" className="validate"/>
                         <label for="address">Address</label>
                     </div>

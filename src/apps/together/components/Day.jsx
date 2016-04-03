@@ -1,6 +1,6 @@
 MyComponents.Days = React.createClass({
     render: function(){
-		return <a className='s1 chip btn' onClick={this.clickDay.bind(this)}>{this.props.d}</a>
+		return <a className='s1 chip btn push-s5 center' onClick={this.clickDay.bind(this)}>{this.props.d}</a>
 	},
     clickDay(e){
         console.log(this.props.d, this.props.click);
@@ -17,10 +17,12 @@ class Day extends React.Component {
             return <MyComponents.Days d={d} click={actions.clickDay}/>
         });
         console.log(this.props.actions)
-        return <div className="row" id="dayBar">
-            <a href={"add.html#" + this.props.data.group}>add</a>
+        return (<div className="row" id="dayBar">
+            <div className="row"></div>
+            <a className='waves-effect waves-light btn blue' href={"add.html#" + this.props.data.group}>Add</a>&nbsp;
+
             {Days}
-        </div>
+        </div>)
     }
 }
 

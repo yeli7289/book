@@ -123,14 +123,14 @@
         overflow-y: scroll;
     }
     .chat-message {
-        margin: 16px 0;
+        margin: 10px 0;
     }
     .chat-message img {
-        border-radius: 50%;
-        float: left;
+        margin-top: 20px;
     }
     .chat-message-content {
-        margin-left: 10px;
+        margin-left: 50px;
+        margin-top: -30px;
     }
     .chat-time {
         float: right;

@@ -31,6 +31,7 @@ class Chatroom extends React.Component {
     render(){
         var messages = this.props.messages;
         var chatRoomName=this.props.chatRoomName;
+
         var space = "  "
 
         return (
@@ -54,6 +55,7 @@ class Chatroom extends React.Component {
                                     //console.log(message)
                                     return (
                                                 <div className="chat-message clearfix">
+                                                    <img src= {'https://avatars3.githubusercontent.com/u/' + message.id} alt="avatar" width="32" height="32"/>
                                                     <div className="chat-message-content clearfix">
                                                         <span className="chat-time">{localTime(message.time)}</span>
                                                     <h5><b>{message.username}</b></h5>
@@ -72,8 +74,8 @@ class Chatroom extends React.Component {
                             <textarea name="messageText1" id="messageText1" placeholder ="Type your message" rows="3" ></textarea>
 
                             <div className="row"></div>
-                            <a className="waves-effect waves-green btn" onClick={this.submit.bind(this)}>Send</a>
-                            <a className="waves-effect waves-green btn" onClick={this.clean.bind(this)}>Clean Hist</a>
+                            <a className="waves-effect waves-green btn float left" onClick={this.submit.bind(this)}>Send</a>
+                            <a className="waves-effect waves-green btn float right" onClick={this.clean.bind(this)}>Clean</a>
 
                         </fieldset>
 
