@@ -47,14 +47,14 @@ function render_Daybar(){
         $('#day-bar').get(0)
     )
 }
-function render_form(){
-    ReactDOM.render(
-        <MyComponents.Form
-            data={data}
-            actions={actions}/>,
-        $('#form').get(0)
-    )
-}
+// function render_form(){
+//     ReactDOM.render(
+//         <MyComponents.Form
+//             data={data}
+//             actions={actions}/>,
+//         $('#form').get(0)
+//     )
+// }
 function render_list(){
     ReactDOM.render(
         <MyComponents.List
@@ -134,7 +134,8 @@ actions.sendMessage = function(message,time){
         messageRef.set({
             username: localStorage.getItem('username'),
             message: message,
-            time: time
+            time: time,
+            id: localStorage.getItem('id')
         })
     }else{
         Materialize.toast('Please enter your message', 3000, 'rounded')
@@ -163,7 +164,7 @@ actions.setUserLocation = function(latlng){
 var firebaseRef = new Firebase('https://wetravel.firebaseio.com/Groups');
 var ref = new Firebase('https://wetravel.firebaseio.com/Users');
 render_nav();
-render_form();
+// render_form();
 var messages={};
 //update the chatroom when there are message updates
 firebaseRef.child(data.group).child('Message').on("value", function(snapshot){
