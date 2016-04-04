@@ -1,4 +1,3 @@
-
 function localTime(timestamp) {
     var date = (timestamp) ? new Date(timestamp) : new Date(),
         hours = date.getHours() || 12,
@@ -36,7 +35,7 @@ class Chatroom extends React.Component {
             <div id="live-chat">
 
                 <header className="clearfix" onClick={() => this.fold()}>
-
+                    <a href="#" onClick={this.show.bind(this)}><i className="tiny material-icons">perm_identity</i></a>
                     <a href="#" className="chat-close" onClick={() => this.close()}>x</a>
 
                     <h4>{chatRoomName}</h4>
@@ -86,14 +85,17 @@ class Chatroom extends React.Component {
         );
     }
 
-    submit(e) {
+    submit() {
         var message = document.getElementById('messageText1').value;
         var time = Firebase.ServerValue.TIMESTAMP;
         console.log("hi",message);
         this.props.actions.sendMessage(message, time);
         document.getElementById('messageText1').value=""
     }
-
+    show() {
+        var member = this.props.member;
+        Materialize.toast(member, 2000)
+    }
 }
 MyComponents.Chatroom = Chatroom
 

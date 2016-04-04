@@ -22,7 +22,8 @@ function render_nav(){
 function render_group(){
     ReactDOM.render(
         <MyComponents.Groups
-            data={data} />,
+            data={data}
+            actions={actions}/>,
         $('#group').get(0)
     )
 }
@@ -36,8 +37,8 @@ function render_form(){
 }
 
 //read firebase
-var firebaseRef = new Firebase('https://wetravel.firebaseio.com/Groups')
-var ref = new Firebase('https://wetravel.firebaseio.com/Users')
+var firebaseRef = new Firebase('https://traveltommy.firebaseio.com/Groups')
+var ref = new Firebase('https://traveltommy.firebaseio.com/Users')
 
 // ACTIONS
 actions.login = function(){
@@ -96,7 +97,7 @@ actions.logout = function(){
     }
 
 }
-actions.makeGroup = function(groupName, time){
+actions.makeGroup = function(groupName, time, user){
     var groups;
     firebaseRef.once('value',function(snapshot){
         groups = _.keys(snapshot.val());
@@ -116,9 +117,18 @@ actions.makeGroup = function(groupName, time){
             },
             Map:'http://maps.google.com/maps/api/staticmap?markers=ca&size=480x420&sensor=true'
         })
+        firebaseRef.child(groupName).child('Member').child(user).set({
+            name: user,
+            status: 'online'
+        })
     }
     else {
         Materialize.toast('this group name already exists', 1000)
     }
+}
+actions.joinGroup = function(groupName, user){
+    firebaseRef.child(groupName).child('Member').child(user).set({
+      name: user
+    })
 }
 render_nav()

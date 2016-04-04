@@ -19,6 +19,7 @@ Scenario 1: the user has logged in
 Scenario 2: the user status has not logged in
     When I has not logged in,
     Then I can only view the web page and use limited functionalities. 
+TODO:
 
 ```
 
@@ -40,11 +41,14 @@ Scenario 2: the group is exist
     When I want to join the group
     Then I have to enter the group with group name and password, and(or) invite others to join in.
 
+TODO:
+
 ```
 
 ## Feature: My App's Feature 3
 
 ``` gherkin
+
 Feature: Invite others
 As the user of client 
 I want to send invitations to others
@@ -60,11 +64,14 @@ Scenario 2: the friend has already joined in
     When I want to add his or her into the group,
     Then an alert message is popped out "the friend is in the group chat".
 
+TODO:
+
 ```
 
 ## Feature: My App's Feature 4
 
 ``` gherkin
+
 Feature: Add schedule
 As the user of client
 I want to schedule to our travel group 
@@ -168,6 +175,10 @@ Scenario 4: close(fold) chatting room
 
 ```
 
+TODO:
+
+```
+
 # Examples
 
 ## Feature: Usage
@@ -203,4 +214,7 @@ Feature: Serve coffee
     And I have deposited $1
     When I press the coffee button
     Then I should be refunded $1
+
 ```
+```
+

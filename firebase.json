@@ -1,5 +1,5 @@
 {
-  "firebase": "wetravel",
+  "firebase": "traveltommy",
   "public": "build",
   "ignore": [
     "firebase.json",

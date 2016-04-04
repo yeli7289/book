@@ -1,18 +1,22 @@
 MyComponents.Group = React.createClass({
 	render: function(){
 		//link to travel.html page
-		return <li className="collection-item blue-grey darken-3"><a onClick={this.setInfo.bind(this)} href="travel.html">{this.props.group}</a></li>
+		return <li className="collection-item blue-grey darken-3"><a onClick={this.Join.bind(this)} href="travel.html">{this.props.group}</a></li>
 	},
-	setInfo(e){
+	Join(){
 		// store the group name
-		localStorage.setItem( 'group', this.props.group)
+		localStorage.setItem('group', this.props.group)
+		// set user name in firebase 
+		this.props.joinGroup(this.props.group, this.props.user)
 	}
 });
 
 class Groups extends React.Component{
 	render(){
+		var user = this.props.data.user;
+		var joinGroup = this.props.actions.joinGroup
 		var g = this.props.data.group.map(function (v, i) {
-			return <MyComponents.Group group={v} key={i}/>
+			return <MyComponents.Group group={v} key={i} user={user} joinGroup={joinGroup}/>
 		});
 		return <div className="card blue-grey darken-4 center-align">
 			<div className="card-content white-text">
@@ -48,8 +52,8 @@ class Form extends React.Component{
 	makegroup(e){
 		var groupName = $('#g').val();
 		var time = Firebase.ServerValue.TIMESTAMP;
-		var userName = this.props.data.user;
-		this.props.actions.makeGroup(groupName, time);
+		var user = this.props.data.user;
+		this.props.actions.makeGroup(groupName, time, user);
 	}
 }
 MyComponents.Form = Form;

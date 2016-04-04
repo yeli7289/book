@@ -15,8 +15,9 @@ var data = {
     time: [],
     list: [],
     center: [lat, lon], //
-    user: null
+    user: localStorage.getItem('username')
 };
+var member=[];
 console.log(data);
 // a single 'handlers' object that holds all the actions of your entire app
 var actions = {};
@@ -27,15 +28,6 @@ function render_nav(){
             data={data}
             actions={actions}/>,
         $('#nav-bar').get(0)
-    )
-}
-
-function render(){
-    ReactDOM.render(
-        <MyComponents.App
-            data={data}
-            actions={actions}/>,
-        $('#app-container').get(0)
     )
 }
 
@@ -68,7 +60,7 @@ function render_chatroom() {
         <MyComponents.Chatroom
             messages={messages}
             actions={actions}
-            data={data}
+            member={member}
             chatRoomName = {data.group}/>,
         $('#chatroom').get(0)
     );
@@ -96,7 +88,9 @@ actions.clickDay = function(Day){
         render_list()
     })
 };
-
+actions.removeList = function(group, day, time){
+    firebaseRef.child(group).child('Schedule').child(day).child(time).remove()
+}
 actions.loadHistory = function(myContext){
     firebaseRef.child(data.group).child('drawing').on('child_added',function(snapshot){
         var coords = snapshot.key().split(":");
@@ -143,7 +137,7 @@ actions.sendMessage = function(message,time){
 };
 
 actions.draw = function(curColor,curSize,x,y){
-    var lineRef = new Firebase('https://wetravel.firebaseio.com/Groups/'+data.group+'/drawing');
+    var lineRef = new Firebase('https://traveltommy.firebaseio.com/Groups/'+data.group+'/drawing');
     lineRef.child(x + ":" + y).set({
         curColor:curColor,
         curSize:curSize
@@ -161,23 +155,29 @@ actions.setUserLocation = function(latlng){
 };
 
 //read firebase
-var firebaseRef = new Firebase('https://wetravel.firebaseio.com/Groups');
-var ref = new Firebase('https://wetravel.firebaseio.com/Users');
+var firebaseRef = new Firebase('https://traveltommy.firebaseio.com/Groups');
+var ref = new Firebase('https://traveltommy.firebaseio.com/Users');
+
 render_nav();
 // render_form();
-var messages={};
+// see the people who are in the group now
+firebaseRef.child(data.group).child('Member').once('value',function(snapshot){
+    member = _.keys(snapshot.val())
+});
+// remove the person from the group member if he leave
+firebaseRef.child(data.group).child('Member').child(data.user).onDisconnect().remove();
+
 //update the chatroom when there are message updates
+var messages={};
 firebaseRef.child(data.group).child('Message').on("value", function(snapshot){
     messages = snapshot.val();
     console.log(messages);
-    render_chatroom();
-    render();
+    render_chatroom();w
 });
-
 
 var drawings={};
 var mapURL;
-var mapRef = new Firebase('https://wetravel.firebaseio.com/Groups/'+data.group+'/Map');
+var mapRef = new Firebase('https://traveltommy.firebaseio.com/Groups/'+data.group+'/Map');
 
 mapRef.on('value',function(snapshot) {
     mapURL = snapshot.val();
@@ -187,7 +187,6 @@ firebaseRef.child(data.group).child('drawing').on('value', function(snapshot){
     drawings = snapshot.val();
     console.log(drawings);
     render_canvas();
-    render();
 });
 
 
