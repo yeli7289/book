@@ -19,6 +19,16 @@ class Chatroom extends React.Component {
         document.getElementById('messageText1').value=""
     }
 
+    clean() {
+        this.props.actions.cleanChat();
+    }
+
+    deleteMSG(messageKey) {
+        this.props.actions.deleteMessage(messageKey);
+
+    }
+
+
     close(){
         $('#live-chat').fadeOut(300);
     }
@@ -31,8 +41,6 @@ class Chatroom extends React.Component {
     render(){
         var messages = this.props.messages;
         var chatRoomName=this.props.chatRoomName;
-
-        var space = "  "
 
         return (
             <div id="live-chat">
@@ -53,16 +61,33 @@ class Chatroom extends React.Component {
                                 Object.keys(messages).map(function(messageKey) {
                                     var message = messages[messageKey];
                                     //console.log(message)
-                                    return (
-                                                <div className="chat-message clearfix">
-                                                    <img src= {'https://avatars3.githubusercontent.com/u/' + message.id} alt="avatar" width="32" height="32"/>
-                                                    <div className="chat-message-content clearfix">
-                                                        <span className="chat-time">{localTime(message.time)}</span>
+                                    if (message.username == localStorage.getItem('username')) {
+                                        return (
+                                            <div className="chat-message clearfix">
+                                                <img src={'https://avatars3.githubusercontent.com/u/' + message.id}
+                                                     alt="avatar" width="32" height="32"/>
+                                                <div className="chat-message-content clearfix">
+                                                        <div className="chat-time">{localTime(message.time)}</div>
                                                     <h5><b>{message.username}</b></h5>
                                                     <p>{message.message}</p>
-                                                    </div>
+
                                                 </div>
-                                    );
+
+                                            </div>
+                                        );
+                                    } else {
+                                        return (
+                                            <div className="chat-message clearfix">
+                                                <img src={'https://avatars3.githubusercontent.com/u/' + message.id}
+                                                     alt="avatar" width="32" height="32"/>
+                                                <div className="chat-message-content clearfix">
+                                                    <div className="chat-time">{localTime(message.time)}</div>
+                                                    <h5><b>{message.username}</b></h5>
+                                                    <p>{message.message}</p>
+                                                </div>
+                                            </div>
+                                        );
+                                    }
                                 })
                             }
                     </div>
@@ -89,17 +114,15 @@ class Chatroom extends React.Component {
         );
     }
 
-    submit(e) {
-        var message = document.getElementById('messageText1').value;
-        var time = Firebase.ServerValue.TIMESTAMP;
-        console.log("hi",message);
-        this.props.actions.sendMessage(message, time);
-        document.getElementById('messageText1').value=""
-    }
+    // submit(e) {
+    //     var message = document.getElementById('messageText1').value;
+    //     var time = Firebase.ServerValue.TIMESTAMP;
+    //     console.log("hi",message);
+    //     this.props.actions.sendMessage(message, time);
+    //     document.getElementById('messageText1').value=""
+    // }
 
-    clean(e) {
-        this.props.actions.cleanChat();
-    }
+
 
 }
 MyComponents.Chatroom = Chatroom

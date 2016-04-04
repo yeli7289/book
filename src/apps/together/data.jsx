@@ -131,9 +131,6 @@ actions.foldChat = function(){
 
 actions.sendMessage = function(message,time){
     var messageRef=firebaseRef.child(data.group).child('Message').push()
-    console.log(localStorage.getItem('username'))
-    console.log(message)
-    console.log(time)
     if(message!=""){
         messageRef.set({
             username: localStorage.getItem('username'),
@@ -164,8 +161,13 @@ actions.cleanChat = function(){
     })
 }
 
+actions.deleteMessage = function(){
+    // var tempRef=firebaseRef.child(data.group).child('Message').once(messageKey);
+    // tempRef.remove();
+}
+
 actions.draw = function(curColor,curSize,x,y){
-    var lineRef = new Firebase('https://wetravel.firebaseio.com/Groups/'+data.group+'/drawing');
+    var lineRef = new Firebase('https://wetravelyun.firebaseio.com/Groups/'+data.group+'/drawing');
     lineRef.child(x + ":" + y).set({
         curColor:curColor,
         curSize:curSize
@@ -183,8 +185,8 @@ actions.setUserLocation = function(latlng){
 };
 
 //read firebase
-var firebaseRef = new Firebase('https://wetravel.firebaseio.com/Groups');
-var ref = new Firebase('https://wetravel.firebaseio.com/Users');
+var firebaseRef = new Firebase('https://wetravelyun.firebaseio.com/Groups');
+var ref = new Firebase('https://wetravelyun.firebaseio.com/Users');
 render_nav();
 // render_form();
 var messages={};
@@ -199,7 +201,7 @@ firebaseRef.child(data.group).child('Message').on("value", function(snapshot){
 
 var drawings={};
 var mapURL;
-var mapRef = new Firebase('https://wetravel.firebaseio.com/Groups/'+data.group+'/Map');
+var mapRef = new Firebase('https://wetravelyun.firebaseio.com/Groups/'+data.group+'/Map');
 
 mapRef.on('value',function(snapshot) {
     mapURL = snapshot.val();

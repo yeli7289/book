@@ -126,11 +126,13 @@
         margin: 10px 0;
     }
     .chat-message img {
-        margin-top: 20px;
+        margin-top: 25px;
+        margin-left: 5px;
+
     }
     .chat-message-content {
-        margin-left: 50px;
-        margin-top: -30px;
+        margin-left: 56px;
+        margin-top: -35px;
     }
     .chat-time {
         float: right;
@@ -142,10 +144,29 @@
     }
     .message_remove {
         background: darkgray;
+        /*margin-left: -15px;*/
+        /*margin-top: 20px;*/
         border-radius: 50%;
         color: #fff;
         display: block;
-        float: left;
+        float: right;
+        font-size: 10px;
+        height: 16px;
+        line-height: 16px;
+        margin-left: 2px;
+        /*margin: 0px 0 0 10px;*/
+        text-align: center;
+        width: 16px;
+
+    }
+    .whitespace {
+        background: white;
+        /*margin-left: -15px;*/
+        /*margin-top: 20px;*/
+        border-radius: 50%;
+        color: white;
+        display: block;
+        float: right;
         font-size: 10px;
         height: 16px;
         line-height: 16px;

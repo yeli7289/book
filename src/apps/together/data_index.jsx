@@ -36,8 +36,8 @@ function render_form(){
 }
 
 //read firebase
-var firebaseRef = new Firebase('https://wetravel.firebaseio.com/Groups')
-var ref = new Firebase('https://wetravel.firebaseio.com/Users')
+var firebaseRef = new Firebase('https://wetravelyun.firebaseio.com/Groups')
+var ref = new Firebase('https://wetravelyun.firebaseio.com/Users')
 
 // ACTIONS
 actions.login = function(){
