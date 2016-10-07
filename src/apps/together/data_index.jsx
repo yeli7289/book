@@ -22,8 +22,7 @@ function render_nav(){
 function render_group(){
     ReactDOM.render(
         <MyComponents.Groups
-            data={data}
-            actions={actions}/>,
+            data={data} />,
         $('#group').get(0)
     )
 }
@@ -97,7 +96,7 @@ actions.logout = function(){
     }
 
 }
-actions.makeGroup = function(groupName, time, user){
+actions.makeGroup = function(groupName, time){
     var groups;
     firebaseRef.once('value',function(snapshot){
         groups = _.keys(snapshot.val());
@@ -117,18 +116,9 @@ actions.makeGroup = function(groupName, time, user){
             },
             Map:'http://maps.google.com/maps/api/staticmap?markers=ca&size=480x420&sensor=true'
         })
-        firebaseRef.child(groupName).child('Member').child(user).set({
-            name: user,
-            status: 'online'
-        })
     }
     else {
         Materialize.toast('this group name already exists', 1000)
     }
-}
-actions.joinGroup = function(groupName, user){
-    firebaseRef.child(groupName).child('Member').child(user).set({
-      name: user
-    })
 }
 render_nav()

@@ -24,7 +24,7 @@ function render(){
 // DATA
 //
 
-var firebaseRef = new Firebase('https://uber-fray.firebaseio.com')
+var firebaseRef = new Firebase('https://traveltommy.firebaseio.com')
 
 // Real-time Data (load constantly on changes)
 firebaseRef.on('value', function(snapshot){
